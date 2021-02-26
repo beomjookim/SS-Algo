@@ -2,16 +2,38 @@ https://www.acmicpc.net/problem/17144
 
 문제를 온전히 이해하는 것이 과제인 문제이다.
 두 가지 사건이 일어난다. 하나는 확산, 하나는 공기청정기로 인한 순환.
- for (int i = 0; i < T; i++)
+
+for (int i = 0; i < T; i++)
  {
-  spread();
-  top circulate();
-  bottom circulate();
+  spread();            // O(R*C)
+  top_circulate();     // O(R+C)
+  bottom_circulate();  // O(R+C)
  }
  
 확산 시 모든 점에서 동시다발적으로 일어나는 것을 반영하는 방법을 택해야 한다.
 구현 시에는 코딩의 특성상 for loop으로 각 점을 순차적으로 traverse 해야 하는데, 
 이를 동시다발적, 그러니까 서로가 서로에 영향을 주지 않게끔 해야 한다.
 처음에 나는 똑같은 크기의 다른 그리드를 만들까 했지만, extra space가 너무 낭비된다.
-대신 QUEUE를 사용하면 된다. STACK도 무방하다. traverse하면서 input한 뒤에 한 개씩 꺼내주면서 확산시켜주면 된다.
+대신 QUEUE를 사용하면 된다. QUEUE에는 새로운 객체 Dust를 집어넣는다. traverse하면서 input한 뒤에 한 개씩 꺼내주면서 확산시켜주면 된다.
+Traversal이므로 O(R*C) 시간이 소비된다. 
 
+Spread function 중에 뒷 traversal 시에 4방향성을 포함할 때는,
+
+int[] dx = { 1, -1, 0, 0 };
+int[] dy = { 0, 0, -1, 1 }; // 동서남북 순.
+
+/* 시계방향 - int [] clockwise = {0,1,2,3};
+반시계방향 - int [] counterclockwise = {3,2,1,0}; */
+
+for(int k = 0; k < 4; k++) 
+{
+    int nextX = x + dx[k];
+    int nextY = y + dx[y];
+}
+이러한 방법을 사용한다.
+
+순환 시에는 해당 루트 상의 녀석들만이 움직이기에, 2D 어레이를 한 줄 벡터에 사영시켜 한 칸씩만 미뤄주면 된다. // 실제로 구현해보기!
+이것의 좋은 점은, 마지막 녀석을 /MAX 해줄 필요 없이 공기청정기에 빨려 들어가게끔 설정해두면 된다.
+
+어려운 개념은 없다. 다만 주어진 모든 조건을 포함한 답변을 내야한다는 점,
+그리고 Dust라는 객체를 새로이 정의해줬다는 것이 특이한 점이었다.
