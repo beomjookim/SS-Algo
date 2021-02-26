@@ -14,7 +14,7 @@ for (int i = 0; i < T; i++)
 구현 시에는 코딩의 특성상 for loop으로 각 점을 순차적으로 traverse 해야 하는데, 
 이를 동시다발적, 그러니까 서로가 서로에 영향을 주지 않게끔 해야 한다.
 처음에 나는 똑같은 크기의 다른 그리드를 만들까 했지만, extra space가 너무 낭비된다.
-대신 QUEUE를 사용하면 된다. QUEUE에는 새로운 객체 Dust를 집어넣는다. traverse하면서 input한 뒤에 한 개씩 꺼내주면서 확산시켜주면 된다.
+대신 QUEUE를 사용하면 된다. QUEUE에는 새로운 객체 Dust를 집어넣는다. traverse하면서 input한 뒤에 한 개씩 꺼내주면서 확산시킨다.
 Traversal이므로 O(R*C) 시간이 소비된다. 
 
 Spread function 중에 뒷 traversal 시에 4방향성을 포함할 때는,
